@@ -6,11 +6,72 @@
         xmlns:local="clr-namespace:BudgetManager.Views"
         mc:Ignorable="d"
         d:DesignHeight="400"
-        d:DesignWidth="500">
+        d:DesignWidth="700">
     <DockPanel LastChildFill="True">
         <StatusBar DockPanel.Dock="Bottom" Height="50"></StatusBar>
 
-        <ContentControl x:Name="ToolBarComponent" DockPanel.Dock="Top" />
+        <ToolBar DockPanel.Dock="Top" Height="70">
+
+            <Button x:Name="Exit">
+                <StackPanel Orientation="Vertical">
+                    <Image Source="/BudgetManager;component/Resources/exit.png" />
+                    <Label Content="Exit iBudget" />
+                </StackPanel>
+            </Button>
+
+            <Separator Margin="0,5" />
+
+            <Button x:Name="SaveBudget">
+                <StackPanel Orientation="Vertical">
+                    <Image Source="/BudgetManager;component/Resources/save.png" />
+                    <Label Content="Save Budget" />
+                </StackPanel>
+            </Button>
+
+            <Button x:Name="OpenBudget">
+                <StackPanel Orientation="Vertical">
+                    <Image Source="/BudgetManager;component/Resources/open-budget.png" />
+                    <Label Content="Open Budget" />
+                </StackPanel>
+            </Button>
+
+            <Button x:Name="EditBudget">
+                <StackPanel Orientation="Vertical">
+                    <Image Source="/BudgetManager;component/Resources/new-budget.png" />
+                    <Label Content="Edit Budget" />
+                </StackPanel>
+            </Button>
+
+            <Separator Margin="0,5" />
+
+            <Button x:Name="ViewBudget">
+                <StackPanel Orientation="Vertical">
+                    <Image Source="/BudgetManager;component/Resources/home.png" />
+                    <Label Content="Spending" />
+                </StackPanel>
+            </Button>
+
+            <Button x:Name="ViewTransactions">
+                <StackPanel Orientation="Vertical">
+                    <Image Source="/BudgetManager;component/Resources/transactions.png" />
+                    <Label Content="Transactions" />
+                </StackPanel>
+            </Button>
+
+            <Button x:Name="ViewCategories">
+                <StackPanel Orientation="Vertical">
+                    <Image Source="/BudgetManager;component/Resources/categories.png" />
+                    <Label Content="Categories" />
+                </StackPanel>
+            </Button>
+
+            <Button x:Name="ViewCategoryGroups">
+                <StackPanel Orientation="Vertical">
+                    <Image Source="/BudgetManager;component/Resources/category-groups.png" />
+                    <Label Content="Category Groups" />
+                </StackPanel>
+            </Button>
+        </ToolBar>
 
         <ContentControl x:Name="ActiveItem" />
     </DockPanel>

@@ -25,7 +25,7 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>2</ApplicationRevision>
+    <ApplicationRevision>3</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -117,9 +117,9 @@
     <Compile Include="Contracts\IModel.cs" />
     <Compile Include="Contracts\IShellView.cs" />
     <Compile Include="Contracts\IView.cs" />
-    <Compile Include="Enums\MessageEnums.cs" />
     <Compile Include="Helper\MessageHelper.cs" />
     <Compile Include="Models\BaseItemModel.cs" />
+    <Compile Include="Models\BudgetEvent.cs" />
     <Compile Include="Models\BudgetItemGroupModel.cs" />
     <Compile Include="Models\BudgetItemModel.cs" />
     <Compile Include="Models\CategoryGroupModel.cs" />
@@ -141,7 +141,6 @@
     <Compile Include="ViewModels\CategoryViewModel.cs" />
     <Compile Include="ViewModels\ShellViewModel.cs" />
     <Compile Include="ViewModels\BudgetDetailsViewModel.cs" />
-    <Compile Include="ViewModels\ToolBarViewModel.cs" />
     <Compile Include="ViewModels\TransactionViewModel.cs" />
     <Compile Include="Views\BudgetSummaryView.xaml.cs">
       <DependentUpon>BudgetSummaryView.xaml</DependentUpon>
@@ -154,9 +153,6 @@
     </Compile>
     <Compile Include="Views\CategoryView.xaml.cs">
       <DependentUpon>CategoryView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\ToolBarView.xaml.cs">
-      <DependentUpon>ToolBarView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\TransactionView.xaml.cs">
       <DependentUpon>TransactionView.xaml</DependentUpon>
@@ -191,10 +187,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\CategoryView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\ToolBarView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -1,7 +1,7 @@
 ﻿using System.Dynamic;
 using BudgetManager.Contracts;
 using BudgetManager.Core.Contracts;
-using BudgetManager.Enums;
+using BudgetManager.Models;
 using Caliburn.Micro;
 
 namespace BudgetManager.ViewModels
@@ -62,7 +62,7 @@ namespace BudgetManager.ViewModels
 
             DataService.CreateOrUpdateBudget(GrossIncome, Tithe);
 
-            EventAggregator.PublishOnUIThread(MessageEnums.RefreshBudget);
+            EventAggregator.PublishOnUIThread(new BudgetEvent());
 
             TryClose();
         }

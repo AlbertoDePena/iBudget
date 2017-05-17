@@ -65,11 +65,18 @@ namespace BudgetManager.Models
         }
 
         public bool CanSave()
-            => !string.IsNullOrEmpty(Name) && IsValidDate() && Amount >= 0 && Category.Key.HasValue;
+            => IsValidDate() && Amount >= 0 && Category.Key.HasValue;
 
         public void CopyModelToEntity()
         {
             Entity.Name = Name;
+
+            if (string.IsNullOrEmpty(Name))
+            {
+                Name = Category.Value;
+                Entity.Name = Category.Value;
+            }
+
             Entity.Amount = Amount;
             Entity.CategoryId = Category.Key.GetValueOrDefault();
             Entity.Date = Convert.ToDateTime(Date);

@@ -2,12 +2,13 @@
 using System.Windows;
 using BudgetManager.Contracts;
 using BudgetManager.Core.Contracts;
-using BudgetManager.Enums;
+using BudgetManager.Models;
 using Caliburn.Micro;
+using Microsoft.Win32;
 
 namespace BudgetManager.ViewModels
 {
-    public class ShellViewModel : Conductor<IView>, IShellView, IHandle<MessageEnums>
+    public class ShellViewModel : Conductor<IView>, IShellView, IHandle<BudgetEvent>
     {
         public ShellViewModel(
             IWindowManager windowManager, IEventAggregator eventAggregator, IDataService dataService, IDialogService dialogService)
@@ -17,14 +18,12 @@ namespace BudgetManager.ViewModels
             DataService = dataService;
             DialogService = dialogService;
 
-            ToolBarComponent = new ToolBarViewModel(eventAggregator, dataService, dialogService);
-
             EventAggregator.Subscribe(this);
 
-            Handle(MessageEnums.DisplayBudget);
+            ViewBudget();
         }
 
-        public ToolBarViewModel ToolBarComponent { get; }
+        public bool BudgetLoaded { get; private set; }
         private IDataService DataService { get; }
         private IDialogService DialogService { get; }
         private IEventAggregator EventAggregator { get; }
@@ -34,7 +33,7 @@ namespace BudgetManager.ViewModels
         {
             try
             {
-                if (!ToolBarComponent.BudgetLoaded)
+                if (!BudgetLoaded)
                 {
                     callback(true);
 
@@ -58,43 +57,9 @@ namespace BudgetManager.ViewModels
             }
         }
 
-        public void Handle(MessageEnums message)
+        public void EditBudget()
         {
-            switch (message)
-            {
-                case MessageEnums.DisplayBudget:
-                    DisplayBudgetView();
-                    break;
-
-                case MessageEnums.DisplayBudgetDialog:
-                    DisplayBudgetDialog();
-                    break;
-
-                case MessageEnums.DisplayTransactions:
-                    DisplayTransactionView();
-                    break;
-
-                case MessageEnums.DisplayCategories:
-                    DisplayCategoryView();
-                    break;
-
-                case MessageEnums.DisplayCategoryGroups:
-                    DisplayCategoryGroupView();
-                    break;
-
-                case MessageEnums.RefreshBudget:
-                    OnRefreshBudget();
-                    break;
-
-                case MessageEnums.ExitApp:
-                    TryClose();
-                    break;
-            }
-        }
-
-        private void DisplayBudgetDialog()
-        {
-            if (!ToolBarComponent.BudgetLoaded)
+            if (!BudgetLoaded)
             {
                 DialogService.ShowOpenBudget();
 
@@ -106,23 +71,82 @@ namespace BudgetManager.ViewModels
             WindowManager.ShowDialog(viewModel, settings: viewModel.ViewSettings("Edit Budget"));
         }
 
-        private void DisplayBudgetView()
+        public void Exit() => TryClose();
+
+        public void Handle(BudgetEvent message)
+        {
+            if (message == null)
+                return;
+
+            RefreshBudget();
+        }
+
+        public void OpenBudget()
+        {
+            try
+            {
+                var directory = DataService.StorageService.GetDirectory();
+
+                var dialog = new OpenFileDialog();
+
+                dialog.Filter = "JSON files|*.json";
+                dialog.InitialDirectory = directory;
+                dialog.Multiselect = false;
+
+                if (dialog.ShowDialog() != true)
+                    return;
+
+                DataService.LoadBudget(dialog.FileName);
+
+                BudgetLoaded = true;
+
+                RefreshBudget();
+            }
+            catch (Exception e)
+            {
+                DialogService.ShowException(e);
+            }
+        }
+
+        public void SaveBudget()
+        {
+            try
+            {
+                if (!BudgetLoaded)
+                    return;
+
+                if (!ActiveItem.CanSaveChanges())
+                {
+                    DialogService.ShowInvalidData();
+
+                    return;
+                }
+
+                DataService.SaveBudget();
+            }
+            catch (Exception e)
+            {
+                DialogService.ShowException(e);
+            }
+        }
+
+        public void ViewBudget()
             => DisplayView("Spending", new BudgetViewModel(WindowManager, EventAggregator, DataService, DialogService), false);
 
-        private void DisplayCategoryGroupView()
-            => DisplayView("Category Groups", new CategoryGroupViewModel(WindowManager, EventAggregator, DataService, DialogService));
-
-        private void DisplayCategoryView()
+        public void ViewCategories()
             => DisplayView("Categories", new CategoryViewModel(WindowManager, EventAggregator, DataService, DialogService));
 
-        private void DisplayTransactionView()
+        public void ViewCategoryGroups()
+            => DisplayView("Category Groups", new CategoryGroupViewModel(WindowManager, EventAggregator, DataService, DialogService));
+
+        public void ViewTransactions()
             => DisplayView("Transactions", new TransactionViewModel(WindowManager, EventAggregator, DataService, DialogService));
 
         private void DisplayView(string displayName, IView view, bool? shouldPromptForLoadedBudget = true)
         {
             if (shouldPromptForLoadedBudget == true)
             {
-                if (!ToolBarComponent.BudgetLoaded)
+                if (!BudgetLoaded)
                 {
                     DialogService.ShowOpenBudget();
 
@@ -139,7 +163,7 @@ namespace BudgetManager.ViewModels
             view.Load();
         }
 
-        private void OnRefreshBudget()
+        private void RefreshBudget()
         {
             var date = DataService.Budget.CreatedOn.ToString("MMMM yyyy");
 
