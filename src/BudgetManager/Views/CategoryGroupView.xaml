@@ -1,0 +1,45 @@
+﻿<UserControl x:Class="BudgetManager.Views.CategoryGroupView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:BudgetManager.Views"
+             xmlns:cal="http://www.caliburnproject.org"
+             mc:Ignorable="d"
+             d:DesignHeight="300" d:DesignWidth="500">
+    <DockPanel LastChildFill="True">
+        <ToolBar DockPanel.Dock="Top" Height="70">
+            <Button x:Name="Add">
+                <StackPanel Orientation="Vertical">
+                    <Image Source="/BudgetManager;component/Resources/new.png" />
+                    <Label Content="New Category Group" />
+                </StackPanel>
+            </Button>
+        </ToolBar>
+
+        <DataGrid Margin="10" x:Name="CategoryGroups" AutoGenerateColumns="False" GridLinesVisibility="None">
+            <DataGrid.Columns>
+                <DataGridTemplateColumn>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Style="{StaticResource RemoveButton}"
+                                    cal:Message.Attach="[Event Click] = [Remove($dataContext)]" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="Name" Width="*">
+                    <DataGridTemplateColumn.CellEditingTemplate>
+                        <DataTemplate>
+                            <TextBox Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellEditingTemplate>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Name}" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+    </DockPanel>
+</UserControl>

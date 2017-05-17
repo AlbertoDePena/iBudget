@@ -1,0 +1,98 @@
+﻿<UserControl x:Class="BudgetManager.Views.BudgetSummaryView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:BudgetManager.Views"
+             mc:Ignorable="d"
+             MinHeight="280"
+             MaxHeight="280"
+             d:DesignWidth="300">
+
+    <Border Style="{StaticResource ContainerBorder}">
+        <Grid Margin="10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition Height="3" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+
+            <Label Style="{StaticResource LargeCenteredLabel}"
+                   Grid.Row="0"
+                   Grid.Column="0"
+                   Grid.ColumnSpan="2"
+                   Content="Budget" />
+
+            <Label Grid.Row="1"
+                   Grid.Column="0"
+                   Content="Gross Income:" />
+
+            <Label Style="{StaticResource RightAlignedLabel}"
+                   Grid.Row="1"
+                   Grid.Column="1"
+                   Content="{Binding GrossIncome, Converter={StaticResource Currency}}" />
+
+            <Label Grid.Row="2"
+                   Grid.Column="0"
+                   Content="Tithe:" />
+
+            <Label Style="{StaticResource RightAlignedLabel}"
+                   Grid.Row="2"
+                   Grid.Column="1"
+                   Content="{Binding Tithe, Converter={StaticResource Percentage}}" />
+
+            <Label Grid.Row="3"
+                   Grid.Column="0"
+                   Content="NET Income:" />
+
+            <Label Style="{StaticResource RightAlignedLabel}"
+                   Grid.Row="3"
+                   Grid.Column="1"
+                   Content="{Binding NetIncome, Converter={StaticResource Currency}}" />
+
+            <Label Grid.Row="4"
+                   Grid.Column="0"
+                   Content="Budgeted:" />
+
+            <Label Style="{StaticResource RightAlignedLabel}"
+                   Grid.Row="4"
+                   Grid.Column="1"
+                   Content="{Binding Budgeted, Converter={StaticResource Currency}}"
+                   Foreground="{Binding BudgetedBrush}" />
+
+            <Label Grid.Row="5"
+                   Grid.Column="0"
+                   Content="Spent:" />
+
+            <Label Style="{StaticResource RightAlignedLabel}"
+                   Grid.Row="5"
+                   Grid.Column="1"
+                   Content="{Binding Spent, Converter={StaticResource Currency}}" />
+
+            <Border Grid.Row="6"
+                    Grid.Column="0"
+                    Grid.ColumnSpan="2"
+                    Background="Silver"
+                    BorderThickness="1" />
+
+            <Label Grid.Row="7"
+                   Grid.Column="0"
+                   Content="Left Over:" />
+
+            <Label Style="{StaticResource RightAlignedLabel}"
+                   Grid.Row="7"
+                   Grid.Column="1"
+                   Content="{Binding LeftOver, Converter={StaticResource Currency}}"
+                   Foreground="{Binding LeftOverBrush}" />
+        </Grid>
+    </Border>
+</UserControl>
