@@ -17,7 +17,8 @@
             </Button>
         </ToolBar>
 
-        <DataGrid Margin="10" x:Name="CategoryGroups" AutoGenerateColumns="False" GridLinesVisibility="None">
+        <DataGrid Margin="10" x:Name="CategoryGroups"
+                  AutoGenerateColumns="False" GridLinesVisibility="None">
             <DataGrid.Columns>
                 <DataGridTemplateColumn>
                     <DataGridTemplateColumn.CellTemplate>
@@ -27,7 +28,7 @@
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-                <DataGridTemplateColumn Header="Name" Width="*">
+                <DataGridTemplateColumn Header="Name" Width="*" SortMemberPath="Name" CanUserSort="True">
                     <DataGridTemplateColumn.CellEditingTemplate>
                         <DataTemplate>
                             <TextBox Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />

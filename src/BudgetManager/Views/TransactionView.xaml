@@ -33,7 +33,7 @@
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-                <DataGridTemplateColumn Header="Name" Width="*">
+                <DataGridTemplateColumn Header="Name" Width="*" SortMemberPath="Name" CanUserSort="True">
                     <DataGridTemplateColumn.CellEditingTemplate>
                         <DataTemplate>
                             <TextBox Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
@@ -45,7 +45,7 @@
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-                <DataGridTemplateColumn Header="Amount" Width="*">
+                <DataGridTemplateColumn Header="Amount" Width="*" SortMemberPath="Amount" CanUserSort="True">
                     <DataGridTemplateColumn.CellEditingTemplate>
                         <DataTemplate>
                             <TextBox Text="{Binding Amount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
@@ -57,7 +57,7 @@
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-                <DataGridTemplateColumn Header="Category" Width="*">
+                <DataGridTemplateColumn Header="Category" Width="*" SortMemberPath="Category.Value" CanUserSort="True">
                     <DataGridTemplateColumn.CellEditingTemplate>
                         <DataTemplate>
                             <ComboBox
@@ -77,7 +77,7 @@
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-                <DataGridTemplateColumn Header="Date" Width="*">
+                <DataGridTemplateColumn Header="Date" Width="*" SortMemberPath="Date" CanUserSort="True">
                     <DataGridTemplateColumn.CellEditingTemplate>
                         <DataTemplate>
                             <TextBox Text="{Binding Date, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
