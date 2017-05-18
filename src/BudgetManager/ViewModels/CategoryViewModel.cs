@@ -11,9 +11,8 @@ namespace BudgetManager.ViewModels
 {
     public class CategoryViewModel : BaseView, IEditableView
     {
-        public CategoryViewModel(
-            IWindowManager windowManager, IEventAggregator eventAggregator, IDataService dataService, IDialogService dialogService)
-            : base(windowManager, eventAggregator, dataService, dialogService)
+        public CategoryViewModel(IDataService dataService, IDialogService dialogService)
+            : base(dataService, dialogService)
         {
             Categories = new BindableCollection<CategoryModel>();
             CategoryGroups = new BindableCollection<KeyValuePair<Guid?, string>>();
@@ -34,6 +33,8 @@ namespace BudgetManager.ViewModels
 
             return validModels && !hasDuplicates;
         }
+
+        public override bool HasChanges() => Categories.Any(x => x.HasChanges);
 
         public string Total
         {
@@ -88,7 +89,7 @@ namespace BudgetManager.ViewModels
 
         protected override void Save()
         {
-            foreach (var item in Categories)
+            foreach (var item in Categories.Where(x => x.HasChanges))
             {
                 item.CopyModelToEntity();
 

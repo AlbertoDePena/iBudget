@@ -6,13 +6,10 @@ namespace BudgetManager.ViewModels
 {
     public abstract class BaseComponent : PropertyChangedBase, IComponent
     {
-        protected BaseComponent(IEventAggregator eventAggregator, IDataService dataService)
+        protected BaseComponent(IDataService dataService)
         {
-            EventAggregator = eventAggregator;
             DataService = dataService;
         }
-
-        protected IEventAggregator EventAggregator { get; }
 
         protected IDataService DataService { get; }
 

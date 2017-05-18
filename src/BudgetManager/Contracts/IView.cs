@@ -5,5 +5,7 @@
         bool CanSaveChanges();
 
         void Load();
+
+        bool HasChanges();
     }
 }

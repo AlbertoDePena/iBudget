@@ -11,9 +11,8 @@ namespace BudgetManager.ViewModels
 {
     public class CategoryGroupViewModel : BaseView, IEditableView
     {
-        public CategoryGroupViewModel(
-            IWindowManager windowManager, IEventAggregator eventAggregator, IDataService dataService, IDialogService dialogService)
-            : base(windowManager, eventAggregator, dataService, dialogService)
+        public CategoryGroupViewModel(IDataService dataService, IDialogService dialogService)
+            : base(dataService, dialogService)
         {
             CategoryGroups = new BindableCollection<CategoryGroupModel>();
         }
@@ -31,6 +30,8 @@ namespace BudgetManager.ViewModels
 
             return validModels && !hasDuplicates;
         }
+
+        public override bool HasChanges() => CategoryGroups.Any(x => x.HasChanges);
 
         public override void Load()
         {
@@ -66,7 +67,7 @@ namespace BudgetManager.ViewModels
 
         protected override void Save()
         {
-            foreach (var item in CategoryGroups)
+            foreach (var item in CategoryGroups.Where(x => x.HasChanges))
             {
                 item.CopyModelToEntity();
 

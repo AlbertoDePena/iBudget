@@ -11,6 +11,8 @@ namespace BudgetManager.Contracts
 
         void ShowOpenBudget();
 
+        MessageBoxResult ShowPendingChanges();
+
         MessageBoxResult ShowSavePendingChanges();
     }
 }

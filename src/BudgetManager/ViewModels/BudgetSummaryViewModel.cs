@@ -7,8 +7,8 @@ namespace BudgetManager.ViewModels
 {
     public class BudgetSummaryViewModel : BaseComponent
     {
-        public BudgetSummaryViewModel(IEventAggregator eventAggregator, IDataService dataService)
-            : base(eventAggregator, dataService)
+        public BudgetSummaryViewModel(IDataService dataService)
+            : base(dataService)
         { }
 
         public double Budgeted => DataService.Categories.Sum(x => x.Amount);

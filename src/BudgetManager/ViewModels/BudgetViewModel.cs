@@ -1,17 +1,15 @@
 ﻿using BudgetManager.Contracts;
 using BudgetManager.Core.Contracts;
-using Caliburn.Micro;
 
 namespace BudgetManager.ViewModels
 {
     public class BudgetViewModel : BaseView
     {
-        public BudgetViewModel(
-            IWindowManager windowManager, IEventAggregator eventAggregator, IDataService dataService, IDialogService dialogService)
-            : base(windowManager, eventAggregator, dataService, dialogService)
+        public BudgetViewModel(IDataService dataService, IDialogService dialogService)
+            : base(dataService, dialogService)
         {
-            BudgetSummaryComponent = new BudgetSummaryViewModel(eventAggregator, dataService);
-            BudgetDetailsComponent = new BudgetDetailsViewModel(eventAggregator, dataService);
+            BudgetSummaryComponent = new BudgetSummaryViewModel(dataService);
+            BudgetDetailsComponent = new BudgetDetailsViewModel(dataService);
         }
 
         public BudgetSummaryViewModel BudgetSummaryComponent { get; }

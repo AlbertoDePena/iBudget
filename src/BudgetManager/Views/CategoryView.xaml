@@ -17,6 +17,13 @@
                 </StackPanel>
             </Button>
 
+            <Button x:Name="SaveChanges">
+                <StackPanel Orientation="Vertical">
+                    <Image Source="/BudgetManager;component/Resources/save.png" />
+                    <Label Content="Save Categories" />
+                </StackPanel>
+            </Button>
+
             <Separator Margin="0,5" />
 
             <Label Content="{Binding Total}" Style="{StaticResource TotalLabel}" />

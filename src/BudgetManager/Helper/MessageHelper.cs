@@ -19,8 +19,12 @@ namespace BudgetManager.Helper
             => MessageBox.Show("Please open a budget.",
                   "iBudget", MessageBoxButton.OK, MessageBoxImage.Exclamation);
 
+        public MessageBoxResult ShowPendingChanges()
+            => MessageBox.Show("You have pending changes. Are you sure you want to undo?",
+                    "iBudget", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
         public MessageBoxResult ShowSavePendingChanges()
-            => MessageBox.Show("You have pending changes. Would you like to save this budget before exiting?",
+                    => MessageBox.Show("Would you like to save this budget before exiting?",
                     "iBudget", MessageBoxButton.YesNoCancel, MessageBoxImage.Question);
     }
 }

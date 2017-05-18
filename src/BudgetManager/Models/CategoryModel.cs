@@ -20,12 +20,15 @@ namespace BudgetManager.Models
             _categoryGroup = new KeyValuePair<Guid?, string>(entity.CategoryGroupId, categoryGroupName);
         }
 
+        public bool HasChanges { get; private set; }
+
         public double Amount
         {
             get { return _amount; }
             set
             {
                 _amount = value;
+                HasChanges = true;
                 NotifyOfPropertyChange();
             }
         }
@@ -36,6 +39,7 @@ namespace BudgetManager.Models
             set
             {
                 _categoryGroup = value;
+                HasChanges = true;
                 NotifyOfPropertyChange();
             }
         }
@@ -48,6 +52,7 @@ namespace BudgetManager.Models
             set
             {
                 _name = value;
+                HasChanges = true;
                 NotifyOfPropertyChange();
             }
         }

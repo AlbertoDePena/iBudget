@@ -28,6 +28,7 @@ namespace BudgetManager.Models
             set
             {
                 _amount = value;
+                HasChanges = true;
                 NotifyOfPropertyChange();
             }
         }
@@ -38,6 +39,7 @@ namespace BudgetManager.Models
             set
             {
                 _category = value;
+                HasChanges = true;
                 NotifyOfPropertyChange();
             }
         }
@@ -48,11 +50,14 @@ namespace BudgetManager.Models
             set
             {
                 _date = value;
+                HasChanges = true;
                 NotifyOfPropertyChange();
             }
         }
 
         public Transaction Entity { get; }
+
+        public bool HasChanges { get; private set; }
 
         public string Name
         {
@@ -60,6 +65,7 @@ namespace BudgetManager.Models
             set
             {
                 _name = value;
+                HasChanges = true;
                 NotifyOfPropertyChange();
             }
         }

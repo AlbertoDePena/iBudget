@@ -15,6 +15,13 @@
                     <Label Content="New Category Group" />
                 </StackPanel>
             </Button>
+
+            <Button x:Name="SaveChanges">
+                <StackPanel Orientation="Vertical">
+                    <Image Source="/BudgetManager;component/Resources/save.png" />
+                    <Label Content="Save Category Groups" />
+                </StackPanel>
+            </Button>
         </ToolBar>
 
         <DataGrid Margin="10" x:Name="CategoryGroups"

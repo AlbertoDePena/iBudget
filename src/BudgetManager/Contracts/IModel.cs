@@ -5,5 +5,7 @@
         void CopyModelToEntity();
 
         bool CanSave();
+
+        bool HasChanges { get; }
     }
 }

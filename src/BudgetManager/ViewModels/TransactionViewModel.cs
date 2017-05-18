@@ -11,9 +11,8 @@ namespace BudgetManager.ViewModels
 {
     public class TransactionViewModel : BaseView, IEditableView
     {
-        public TransactionViewModel(
-            IWindowManager windowManager, IEventAggregator eventAggregator, IDataService dataService, IDialogService dialogService)
-            : base(windowManager, eventAggregator, dataService, dialogService)
+        public TransactionViewModel(IDataService dataService, IDialogService dialogService)
+            : base(dataService, dialogService)
         {
             Transactions = new BindableCollection<TransactionModel>();
             Categories = new BindableCollection<KeyValuePair<Guid?, string>>();
@@ -32,6 +31,8 @@ namespace BudgetManager.ViewModels
                 return $"Total: {spent}";
             }
         }
+
+        public override bool HasChanges() => Transactions.Any(x => x.HasChanges);
 
         public void Add()
             => Transactions.Add(new TransactionModel(new Transaction() { Date = DateTime.UtcNow }, string.Empty));
@@ -81,7 +82,7 @@ namespace BudgetManager.ViewModels
 
         protected override void Save()
         {
-            foreach (var item in Transactions)
+            foreach (var item in Transactions.Where(x => x.HasChanges))
             {
                 item.CopyModelToEntity();
 

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Windows;
 using BudgetManager.Contracts;
 using BudgetManager.Core.Contracts;
 using Caliburn.Micro;
@@ -7,27 +8,34 @@ namespace BudgetManager.ViewModels
 {
     public abstract class BaseView : Screen, IView
     {
-        protected BaseView(
-            IWindowManager windowManager, IEventAggregator eventAggregator, IDataService dataService, IDialogService dialogService)
+        protected BaseView(IDataService dataService, IDialogService dialogService)
         {
-            WindowManager = windowManager;
-            EventAggregator = eventAggregator;
             DataService = dataService;
             DialogService = dialogService;
         }
 
         protected IDataService DataService { get; }
         protected IDialogService DialogService { get; }
-        protected IEventAggregator EventAggregator { get; }
-        protected IWindowManager WindowManager { get; }
 
-        public override void CanClose(Action<bool> callback) => callback(SaveChanges());
+        public override void CanClose(Action<bool> callback)
+        {
+            var shouldClose = true;
+
+            if (HasChanges())
+            {
+                shouldClose = DialogService.ShowPendingChanges() == MessageBoxResult.Yes;
+            }
+
+            callback(shouldClose);
+        }
 
         public virtual bool CanSaveChanges() => true;
 
         public abstract void Load();
 
-        private bool SaveChanges()
+        public virtual bool HasChanges() => false;
+
+        public bool SaveChanges()
         {
             try
             {

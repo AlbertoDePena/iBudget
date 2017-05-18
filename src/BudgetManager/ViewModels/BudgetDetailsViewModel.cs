@@ -7,8 +7,8 @@ namespace BudgetManager.ViewModels
 {
     public class BudgetDetailsViewModel : BaseComponent
     {
-        public BudgetDetailsViewModel(IEventAggregator eventAggregator, IDataService dataService)
-            : base(eventAggregator, dataService)
+        public BudgetDetailsViewModel(IDataService dataService)
+            : base(dataService)
         {
             BudgetItems = new BindableCollection<BudgetItemGroupModel>();
         }

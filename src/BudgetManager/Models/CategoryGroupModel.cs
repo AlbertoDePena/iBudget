@@ -16,12 +16,15 @@ namespace BudgetManager.Models
 
         public CategoryGroup Entity { get; }
 
+        public bool HasChanges { get; private set; }
+
         public string Name
         {
             get { return _name; }
             set
             {
                 _name = value;
+                HasChanges = true;
                 NotifyOfPropertyChange();
             }
         }

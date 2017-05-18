@@ -131,16 +131,16 @@ namespace BudgetManager.ViewModels
         }
 
         public void ViewBudget()
-            => DisplayView("Spending", new BudgetViewModel(WindowManager, EventAggregator, DataService, DialogService), false);
+            => DisplayView("Spending", new BudgetViewModel(DataService, DialogService), false);
 
         public void ViewCategories()
-            => DisplayView("Categories", new CategoryViewModel(WindowManager, EventAggregator, DataService, DialogService));
+            => DisplayView("Categories", new CategoryViewModel(DataService, DialogService));
 
         public void ViewCategoryGroups()
-            => DisplayView("Category Groups", new CategoryGroupViewModel(WindowManager, EventAggregator, DataService, DialogService));
+            => DisplayView("Category Groups", new CategoryGroupViewModel(DataService, DialogService));
 
         public void ViewTransactions()
-            => DisplayView("Transactions", new TransactionViewModel(WindowManager, EventAggregator, DataService, DialogService));
+            => DisplayView("Transactions", new TransactionViewModel(DataService, DialogService));
 
         private void DisplayView(string displayName, IView view, bool? shouldPromptForLoadedBudget = true)
         {
