@@ -51,7 +51,7 @@ namespace BudgetManager.ViewModels
             Categories.Clear();
             CategoryGroups.Clear();
 
-            CategoryGroups.AddRange(DataService.CategoryGroups.Select(x => new KeyValuePair<Guid?, string>(x.Id, x.Name)));
+            CategoryGroups.AddRange(DataService.CategoryGroups.OrderBy(x => x.Name).Select(x => new KeyValuePair<Guid?, string>(x.Id, x.Name)));
 
             foreach (var item in DataService.Categories.OrderBy(x => x.Name))
             {

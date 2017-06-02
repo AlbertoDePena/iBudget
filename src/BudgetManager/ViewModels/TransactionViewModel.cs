@@ -44,7 +44,7 @@ namespace BudgetManager.ViewModels
             Transactions.Clear();
             Categories.Clear();
 
-            Categories.AddRange(DataService.Categories.Select(x => new KeyValuePair<Guid?, string>(x.Id, x.Name)));
+            Categories.AddRange(DataService.Categories.OrderBy(x => x.Name).Select(x => new KeyValuePair<Guid?, string>(x.Id, x.Name)));
 
             foreach (var item in DataService.Budget.Transactions.OrderBy(x => x.Date))
             {
